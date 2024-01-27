@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Vin_Fletcher_s_Arrows</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="MyClasses">
+      <HintPath>..\..\..\C# Custom Classes\MyClasses\MyClasses\bin\Debug\net6.0\MyClasses.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
