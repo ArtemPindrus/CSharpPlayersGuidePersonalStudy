@@ -1,6 +1,5 @@
-﻿using TheUncodedOneBattle.Characters;
-
-namespace TheUncodedOneBattle {
+﻿namespace TheUncodedOneBattle
+{
     internal class Battle {
         public Party HeroParty { get; }
         public Party MonsterParty { get; }

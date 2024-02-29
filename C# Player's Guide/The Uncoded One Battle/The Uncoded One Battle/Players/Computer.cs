@@ -1,48 +1,46 @@
-﻿using TheUncodedOneBattle.Characters.Items;
-using TheUncodedOneBattle.Characters;
-
-namespace TheUncodedOneBattle.Players
+﻿namespace TheUncodedOneBattle.Players
 {
-    class Computer : Player {
-        private static readonly int thinkingTime = 1000;
-        private readonly Random rn = new();
+    using TheUncodedOneBattle.Characters;
+    using TheUncodedOneBattle.Actions;
+    using System.Security.Cryptography;
+    using TheUncodedOneBattle.Items;
 
-        public override void PickAction(Character character) {
-            Console.Write($"Computer is picking an action for {character.Name}: ");
+    class Computer : IPlayer {
+        private static readonly int chanceToUseHealingWhenWounded = 25;
+        private static readonly int thinkingTime = 0;
+
+        public ICharacterAction PickAction(Character performant) {
+            if (performant.AttachedGame == null) throw new ArgumentException($"{nameof(performant)} is not attached to the game!");
+            if (performant.AttachedParty == null) throw new ArgumentException($"{nameof(performant)} isn't attached to any party!");
+
+            Console.Write($"It's {performant.Name}'s turn...\nComputer is choosing the action for {performant.Name}: ");
             Thread.Sleep(thinkingTime);
 
-            int rndChoice = rn.Next(CharacterActionHelper.NumberOfValues);
-            Console.WriteLine(rndChoice+1);
+            if (performant.CurrentHealth <= performant.MaxHealth / 2) {
+                List<IItem> partyItems = performant.AttachedParty.Items;
+                if (partyItems.Count > 0 && partyItems.Any(x => x is HealingPotion)) {
+                    int randomInt = Random.Shared.Next(100);
+                    if (randomInt <= chanceToUseHealingWhenWounded) { //use healingPotion
+                        Console.WriteLine((int)CharacterActionEnum.UseItem+1); //simulate choice
+                        Console.Write("Compute is choosing the item: ");
+                        Thread.Sleep(thinkingTime);
 
-            character.PerformAction((CharacterAction) rndChoice, this);
-        }
+                        int targetItem = partyItems.FindIndex(x => x is HealingPotion);
+                        Console.WriteLine(targetItem + 1);
 
-        public override Character PickAttackTarget() {
+                        return new UseItem(partyItems[targetItem], performant);
+                    }
+                }
+            } 
+
+            Console.WriteLine((int) CharacterActionEnum.Attack+1); //simulate choice
             Console.Write("Computer is choosing the target: ");
-            Thread.Sleep(thinkingTime);
 
-            if (AttachedGame == null) throw new Exception("Player isn't attached to the game");
-            Party party = AttachedGame.GetOppositeParty(this);
+            Party oppositeParty = performant.AttachedGame.GetOppositeParty(performant.AttachedParty);
+            int target = Random.Shared.Next(oppositeParty.Count);
+            Console.WriteLine(target+1);
 
-            int target = rn.Next(party.Count);
-
-            Console.WriteLine(target + 1);
-
-            return party[target];
-        }
-
-        public override Item PickItem() {
-            Console.Write("Computer is choosing the item: ");
-            Thread.Sleep(thinkingTime);
-
-            if (AttachedGame == null) throw new Exception("Player isn't attached to the game");
-            Party party = AttachedGame.GetPartyOf(this);
-
-            if (party.Items == null) throw new Exception("Party doesn't have any items!");
-            int choice = Random.Shared.Next(party.Items.Count);
-            Console.WriteLine(choice+1);
-
-            return party.Items[choice];
+            return new AttackAction(performant, oppositeParty[target]);
         }
     }
 }

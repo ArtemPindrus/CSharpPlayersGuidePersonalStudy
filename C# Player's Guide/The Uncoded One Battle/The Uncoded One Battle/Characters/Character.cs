@@ -1,70 +1,48 @@
 ﻿namespace TheUncodedOneBattle.Characters
 {
-    using Players;
-    using Extensions;
     using Attacks;
-    using TheUncodedOneBattle.Characters.Items;
-
-    enum CharacterAction { DoNothing, StandartAttack, UseItem }
+    using Extensions;
+    using TheUncodedOneBattle.Actions;
 
     class Character {
         public event EventHandler? Died;
 
         public Party? AttachedParty { get; private set; }
+        public Game? AttachedGame { get; private set; }
 
         public int MaxHealth { get; }
         public int CurrentHealth { get; private set; }
+        public string HealthStatus => $"{CurrentHealth}/{MaxHealth}";
 
         public string Name { get; private set; }
-        protected IAttack StandartAttack { get; }
+        public IAttack Attack { get; }
 
         public Character(string name, int maxHealth, int initialHealth, IAttack standartAttack) {
             Name = name;
-            StandartAttack = standartAttack;
+            Attack = standartAttack;
 
             MaxHealth = maxHealth;
             CurrentHealth = initialHealth;
         }
 
-        public void Attach(Party party) => AttachedParty = party;
+        public void AttachGame(Game game) => AttachedGame = game;
+        public void AttachParty(Party party) => AttachedParty = party;
 
-        public void PerformAction(CharacterAction action, Player commander) {
-            Console.WriteLine($"It's {Name}'s turn...");
-
-            if (action == CharacterAction.DoNothing) Console.WriteLine($"{Name} did NOTHING.");
-            else if (action == CharacterAction.StandartAttack) {
-                Character target = commander.PickAttackTarget();
-
-                int damage = StandartAttack.Damage;
-
-
-                Console.WriteLine($"{Name} performed a {StandartAttack} on {target.Name}.");
-
-                ConsoleColor color = damage == 0 ? ConsoleColor.Red : ConsoleColor.Green;
-                ConsoleExtensions.WriteLineColor($"{StandartAttack} has dealt {damage}. {target.Name} is now at {target.CurrentHealth - damage}/{target.MaxHealth}", color);
-
-                target.TakeDamage(damage);
-            } else if (action == CharacterAction.UseItem) {
-                if (AttachedParty == null) throw new Exception("character isn't attached!");
-                if (AttachedParty.Items.Count == 0) {
-                    ConsoleExtensions.WriteLineColor($"{Name} wasted his turn!", ConsoleColor.Red);
-                    return;
-                }
-
-                Item item = commander.PickItem();
-                item.Use(this);
-            } else throw new NotImplementedException($"method for action {action} is not implemented!");
-
-            Console.WriteLine();
-        }
-
-        public void TakeDamage(int damage) {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <returns>returns whether character died</returns>
+        public bool TakeDamage(int damage) {
             CurrentHealth -= damage;
 
             if (CurrentHealth <= 0) {
                 CurrentHealth = 0;
                 Died?.Invoke(this, EventArgs.Empty);
+                return true;
             }
+
+            return false;
         }
 
         public void Heal(int amount) { 
