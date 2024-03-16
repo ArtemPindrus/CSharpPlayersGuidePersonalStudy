@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colored Console", "Colored Console\Colored Console.csproj", "{317D7A6E-88D2-4160-B82E-FB90473139A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "ColoredConsole\Helpers.csproj", "{D080D759-DF52-42DB-827E-4B5CF3B327D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{317D7A6E-88D2-4160-B82E-FB90473139A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{317D7A6E-88D2-4160-B82E-FB90473139A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{317D7A6E-88D2-4160-B82E-FB90473139A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{317D7A6E-88D2-4160-B82E-FB90473139A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D080D759-DF52-42DB-827E-4B5CF3B327D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D080D759-DF52-42DB-827E-4B5CF3B327D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D080D759-DF52-42DB-827E-4B5CF3B327D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D080D759-DF52-42DB-827E-4B5CF3B327D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ABB60112-B326-44CB-9B97-028CFB1BDA37}
+	EndGlobalSection
+EndGlobal

@@ -2,12 +2,11 @@
 {
     using TheUncodedOneBattle.Characters;
     using TheUncodedOneBattle.Actions;
-    using System.Security.Cryptography;
     using TheUncodedOneBattle.Items;
 
     class Computer : IPlayer {
         private static readonly int chanceToUseHealingWhenWounded = 25;
-        private static readonly int thinkingTime = 0;
+        private static readonly int thinkingTime = 1500;
 
         public ICharacterAction PickAction(Character performant) {
             if (performant.AttachedGame == null) throw new ArgumentException($"{nameof(performant)} is not attached to the game!");

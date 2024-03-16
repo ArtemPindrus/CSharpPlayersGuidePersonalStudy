@@ -12,7 +12,7 @@ namespace TheUncodedOneBattle
 1. User vs Computer
 2. Computer vs Computer
 3. User vs User");
-            int choice = ConsoleExtensions.GetInt("Enter you choice: ", 1, 3);
+            int choice = ConsoleHelper.GetInt("Enter you choice: ", 1, 3);
 
             IPlayer[] players = choice switch {
                 1 => new IPlayer[] { new User(), new Computer() },
@@ -21,7 +21,7 @@ namespace TheUncodedOneBattle
                 _ => throw new Exception("Gamemode isn't defined for given number!"),
             };
 
-            string name = ConsoleExtensions.GetNotNullOrEmptyString("Enter your name, hero: ");
+            string name = ConsoleHelper.GetNotNullOrEmptyString("Enter your name, hero: ");
 
             Party heroes = new(
                 new Character[] { new TrueProgrammer(name) },
@@ -49,6 +49,8 @@ namespace TheUncodedOneBattle
             Console.Clear();
 
             Game _ = new(heroes, monsters);
+
+            Console.ReadKey();
         }
     }
 }

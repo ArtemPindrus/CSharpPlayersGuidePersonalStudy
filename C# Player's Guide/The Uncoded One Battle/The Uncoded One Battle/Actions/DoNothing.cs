@@ -12,7 +12,7 @@ namespace TheUncodedOneBattle.Actions
         }
 
         public void Perform() {
-            ConsoleExtensions.WriteLineColor($"{Performant.Name} did nothing...", ConsoleColor.Red);
+            ConsoleHelper.WriteLineColor($"{Performant.Name} did nothing...", ConsoleColor.Red);
         }
     }
 }

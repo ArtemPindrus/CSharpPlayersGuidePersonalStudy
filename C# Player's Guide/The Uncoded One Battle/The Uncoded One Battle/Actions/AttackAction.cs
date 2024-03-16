@@ -18,9 +18,10 @@ namespace TheUncodedOneBattle.Actions
             int damage = Performant.Attack.Damage;
 
             ConsoleColor color = damage > 0 ? ConsoleColor.Green : ConsoleColor.Red;
-            ConsoleExtensions.WriteLineColor($"{Performant.Name} has dealt {damage} damage with {Performant.Attack} on {Target.Name}!", color);
+            ConsoleHelper.WriteLineColor($"{Performant.Name} has dealt {damage} damage with {Performant.Attack} on {Target.Name}!", color);
 
-            if (!Target.TakeDamage(damage)) ConsoleExtensions.WriteLineColor($"The {Target.Name} is now at {Target.HealthStatus}", color);
+            if (!Target.TakeDamage(damage))
+                ConsoleHelper.WriteLineColor($"The {Target.Name} is now at {Target.HealthStatus}", color);
         }
     }
 }
